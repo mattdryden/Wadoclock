@@ -22,8 +22,8 @@ class Wadoclock extends Component {
 
 
 
-    renderWado(message) {
-        return <Wado message={message} />
+    renderWado(message, date) {
+        return <Wado message={message} date={date} />
     }
 
     render() {
@@ -35,12 +35,16 @@ class Wadoclock extends Component {
         }
         else if(validatedDate > 0) {
             if(validatedDate === 1) {
-                return this.renderWado('===================================== Date has passed! =======================================');
+                return this.renderWado(`=================================================================================================
+                ========================================= Date has passed! =========================================
+                =================================================================================================`);
             } else {
-                return event;
+                return this.renderWado(event, moment(date, 'YYYY-MM-DD HH:mm'));
             }
         } else {
-            return this.renderWado('==================================== Invalid date, brah! =====================================');
+            return this.renderWado(`=================================================================================================
+                    ======================================= Invalid date, brah! ========================================
+                    =================================================================================================`);
         }
     }
 }
