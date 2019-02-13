@@ -1,0 +1,17 @@
+#wado  pre {
+    white-space: normal;
+    width: 750px;
+    height: 730px;
+    margin: 0 auto;
+    font-family: monospace;
+    font-size: .75rem;
+    margin-top: -365px;
+    margin-left: -375px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    border: dotted 1px #EEEEEE;
+    box-sizing: border-box;
+    padding: .5rem 0 .5rem 0;
+}
