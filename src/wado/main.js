@@ -4,6 +4,10 @@ import './main.css';
 
 class Wado extends Component {
 
+    static defaultProps = {
+        latin: false
+    }
+
     constructor(props) {
         super(props);
         this.state = { }
@@ -11,7 +15,7 @@ class Wado extends Component {
     }
 
     formattedUntil() {
-        let { date } = this.props;
+        let { date, latin } = this.props;
         const diff = date.diff(moment());
         const diffDuration = moment.duration(diff);
         let years = diffDuration.years();
@@ -25,31 +29,31 @@ class Wado extends Component {
         let formatted = '';
 
         if(years > 0) {
-            formatted += `${years} years, `;
+            formatted += `${years} ${latin ? 'annorum' : 'years'}, `;
         }
 
         if (months > 0) {
-            formatted += `${months} months, `;
+            formatted += `${months} ${latin ? 'menses' : 'months'}, `;
         }
 
         if (weeks > 0) {
-            formatted += `${weeks} weeks, `;
+            formatted += `${weeks} ${latin ? 'hebdomades' : 'weeks'}, `;
         }
 
         if (days > 0) {
-            formatted += `${days} days, `;
+            formatted += `${days} ${latin ? 'diebus' : 'days'}, `;
         }
 
         if (hours > 0) {
-            formatted += `${hours} hours `;
+            formatted += `${hours} ${latin ? 'horis' : 'hours'}, `;
         }
 
         if (minutes > 0) {
-            formatted += `${minutes} minutes, `;
+            formatted += `${minutes} ${latin ? 'minutes' : 'minutes'}, `;
         }
 
         if (seconds > 0) {
-            formatted += `${seconds} seconds, `;
+            formatted += `${seconds} ${latin ? 'seconds' : 'seconds'}, `;
         }
 
         return formatted;
@@ -62,7 +66,7 @@ class Wado extends Component {
             this.timer=setInterval(() => {
                 this.setState({
                     message: `===================================================================================================
-                    =================================== THE TIME IS ${moment().format('hh:mm:ss a')} =======================================
+                    =================================== ${this.props.latin ? 'Tempus enim' : 'THE TIME IS'} ${moment().format('hh:mm:ss a')} =======================================
                     ================================================================================================`
                 })
             }, 1000);
@@ -92,7 +96,7 @@ class Wado extends Component {
         let { message } = this.state;
 
         let mrwaddo = typeof this.props.message === 'undefined' ? `================================================================================================
-        ================================== WHATS THE TIME MR WADDO? =======================================
+        =================================${this.props.latin ? ' TEMPUS MR WADDO quid agis? ' : '= WHATS THE TIME MR WADDO? ='}======================================
         `: ''
 
         return (

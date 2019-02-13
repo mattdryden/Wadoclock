@@ -9,8 +9,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path="/" render={() => <Wadoclock />} />
-          <Route exact path="/:event/:date" render={(props) => <Wadoclock event={props.match.params.event} date={props.match.params.date} />} />
+          <Route exact path="/" render={(props) => <Wadoclock {...props} />} />
+          <Route exact path="/:event/:date" render={(props) => <Wadoclock {...props} event={props.match.params.event} date={props.match.params.date} />} />
         </Switch>
       </Router>
         );

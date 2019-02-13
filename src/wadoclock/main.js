@@ -6,6 +6,11 @@ import './main.css';
 
 class Wadoclock extends Component {
 
+    checkLatin() {
+        let { location: { search } = {}} = this.props;
+        return search.replace(/^.*?\=/, '') == 'true' ? true : false;
+    }
+
     validateDate(date) {
         if (/[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]/.test(date) === false) {
             return 0;
@@ -21,12 +26,12 @@ class Wadoclock extends Component {
     }
 
 
-
     renderWado(message, date) {
-        return <Wado message={message} date={date} />
+        return <Wado message={message} date={date} latin={this.checkLatin()} />
     }
 
     render() {
+
         let { event, date } = this.props;
         let validatedDate = this.validateDate(date);
 
@@ -36,14 +41,14 @@ class Wadoclock extends Component {
         else if(validatedDate > 0) {
             if(validatedDate === 1) {
                 return this.renderWado(`=================================================================================================
-                ========================================= Date has passed! =========================================
+                =========================================${this.checkLatin() ? '=== Date abit! ===' : ' Date has passed! '}=========================================
                 =================================================================================================`);
             } else {
                 return this.renderWado(event, moment(date, 'YYYY-MM-DD HH:mm'));
             }
         } else {
             return this.renderWado(`=================================================================================================
-                    ======================================= Invalid date, brah! ========================================
+                    ======================================= ${this.checkLatin() ? 'Aliquam diem, brah!' : 'Invalid date, brah!'} ========================================
                     =================================================================================================`);
         }
     }
