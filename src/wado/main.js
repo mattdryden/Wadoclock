@@ -11,19 +11,28 @@ class Wado extends Component {
     }
 
     componentDidMount() {
-        this.timer=setInterval(() => {
+
+        if(typeof this.props.message === 'undefined')  {
+            this.timer=setInterval(() => {
+                this.setState({
+                    message: `================================ THE TIME IS ${moment().format('hh:mm:ss a')} =====================================`
+                })
+            }, 1000);
+        } else {
             this.setState({
-                currentTime: moment().format('hh:mm:ss a')
+                message: this.props.message
             })
-        }, 1000);
+        }
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        if (typeof this.props.message === 'undefined') {
+            clearInterval(this.timer);
+        }
     }
     
     render() {
-        let { currentTime } = this.state;
+        let { message } = this.state;
 
         return (
             <div id="wado">
@@ -84,7 +93,7 @@ MMMNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmddmMMMMdhhmN++hNNNNNNNNNNNNNNNNNNN
 ==================================== WHATS THE TIME MR WADDO? ======================================
 ====================================================================================================
 ====================================================================================================
-====================================== THE TIME IS {currentTime} =====================================
+==={message}===
 ====================================================================================================
 ====================================================================================================
                                                                                                                                                                                                                             
