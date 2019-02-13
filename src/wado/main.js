@@ -10,7 +10,9 @@ class Wado extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { }
+        this.state = {
+            loaded: false
+        }
         this.timer = {};
     }
 
@@ -60,6 +62,14 @@ class Wado extends Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.loaded === false) {
+            this.setState({
+                loaded: true
+            })
+        }
+    }
+
     componentDidMount() {
 
         if(typeof this.props.message === 'undefined')  {
@@ -99,7 +109,8 @@ class Wado extends Component {
         =================================${this.props.latin ? ' TEMPUS MR WADDO quid agis? ' : '= WHATS THE TIME MR WADDO? ='}======================================
         `: ''
 
-        return (
+        return this.state.loaded ? (
+            <div id="container" className={this.state.loaded ? 'visible' : 'hidden'}>
             <div id="wado">
                 <pre>
                     MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -156,7 +167,9 @@ MMMNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmddmMMMMdhhmN++hNNNNNNNNNNNNNNNNNNN
 ==={mrwaddo}{message}===
                 </pre>
             </div>
-        )
+                {!this.props.latin ? <a href="?latin=true">Excelsior?</a> : <a href="?latin=false">Muggle?</a> }
+            </div>
+        ) : null
     }
 }
 
